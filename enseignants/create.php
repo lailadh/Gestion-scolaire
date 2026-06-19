@@ -7,9 +7,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!empty($nom) && !empty($prenom)) {
         try {
-            // هنا استعملنا الأسماء المتوقعة للحقول
-            $stmt = $pdo->prepare("INSERT INTO enseignants (nom_enseignant, prenom_enseignant) VALUES (?, ?)");
+            // التصحيح النهائي: استهداف الأعمدة الحقيقية nom و prenom
+            $stmt = $pdo->prepare("INSERT INTO enseignants (nom, prenom) VALUES (?, ?)");
             $stmt->execute([$nom, $prenom]);
+            
+            // الرجوع لصفحة الجدول بعد الإضافة بنجاح
             header("Location: index.php");
             exit();
         } catch (PDOException $e) {
@@ -27,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <h2>Ajouter un nouvel enseignant</h2>
+    
     <form action="create.php" method="POST">
         <label>Nom :</label>
         <input type="text" name="nom" required><br><br>
