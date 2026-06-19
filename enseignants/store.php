@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prenom = $_POST['prenom'];
 
     try {
-        // تغيير أسماء الأعمدة لـ nom و prenom ليتطابق مع قاعدة البيانات عندك
+        // الاستعلام الصحيح المتوافق مع قاعدة البيانات ديالك (nom و prenom)
         $stmt = $pdo->prepare("INSERT INTO enseignants (nom, prenom) VALUES (?, ?)");
         $stmt->execute([$nom, $prenom]);
         
