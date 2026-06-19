@@ -31,9 +31,10 @@ try {
             <td><?= htmlspecialchars($c['nom_classe'] ?? $c['nom'] ?? '') ?></td>
             <td><?= htmlspecialchars($c['niveau'] ?? '') ?></td>
             <td><?= htmlspecialchars($c['capacite_max'] ?? '') ?></td>
-            <td>
-                <a href="edit.php?id=<?= $c['id_classe'] ?? $c['id'] ?>" class="btn btn-edit">Edit</a>
-                <a href="delete.php?id=<?= $c['id_classe'] ?? $c['id'] ?>" class="btn btn-delete" onclick="return confirm('Sûr ?')">Delete</a>
+            
+                <td>
+    <a href="edit.php?id=<?= $c['id_classe'] ?>" class="btn btn-edit">Edit</a>
+    <a href="delete.php?id=<?= $c['id_classe'] ?>" class="btn btn-delete" onclick="return confirm('Sûr ?')">Delete</a>
             </td>
         </tr>
         <?php endforeach; ?>

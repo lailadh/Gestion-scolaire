@@ -5,15 +5,14 @@
 require "../config/db.php";
 
 try {
-    // جلب البيانات من جدول eleves بالجمع
+    // جلب جميع التلاميذ من قاعدة البيانات
     $eleves = $pdo->query("SELECT * FROM eleves")->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Erreur de base de données : " . $e->getMessage());
 }
 ?>
 
-<h2>Liste des élèves</h2>
-
+<h2>Liste des Élèves</h2>
 <a href="create.php" class="btn btn-add">Ajouter un élève</a>
 
 <table>
@@ -26,14 +25,14 @@ try {
         </tr>
     </thead>
     <tbody>
-        <?php foreach($eleves as $e): ?>
+        <?php foreach($eleves as $el): ?>
         <tr>
-            <td><?= htmlspecialchars($e['id_eleve'] ?? $e['id'] ?? '') ?></td>
-            <td><?= htmlspecialchars($e['nom_eleve'] ?? $e['nom'] ?? '') ?></td>
-            <td><?= htmlspecialchars($e['prenom_eleve'] ?? $e['prenom'] ?? '') ?></td>
+            <td><?= htmlspecialchars($el['id_eleve'] ?? '') ?></td>
+            <td><?= htmlspecialchars($el['nom'] ?? '') ?></td>
+            <td><?= htmlspecialchars($el['prenom'] ?? '') ?></td>
             <td>
-                <a href="edit.php?id=<?= $e['id_eleve'] ?? $e['id'] ?>" class="btn btn-edit">Edit</a>
-                <a href="delete.php?id=<?= $e['id_eleve'] ?? $e['id'] ?>" class="btn btn-delete" onclick="return confirm('Sûr ?')">Delete</a>
+                <a href="edit.php?id=<?= $el['id_eleve'] ?>" class="btn btn-edit">Edit</a>
+                <a href="delete.php?id=<?= $el['id_eleve'] ?>" class="btn btn-delete" onclick="return confirm('Sûr ?')">Delete</a>
             </td>
         </tr>
         <?php endforeach; ?>
