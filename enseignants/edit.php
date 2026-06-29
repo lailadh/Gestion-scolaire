@@ -1,71 +1,56 @@
 <?php
 require "../config/db.php";
+require "../includes/functions.php";
 
-// 1. أولاً: التحقق من إرسال الفورم (POST) لتنفيذ التعديل
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = $_POST['id'];
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-
-    try {
-        // التعديل باستعمال id_enseignant كمعرف، و nom/prenom كأعمدة
-        $stmt = $pdo->prepare("UPDATE enseignants SET nom = ?, prenom = ? WHERE id_enseignant = ?");
-        $stmt->execute([$nom, $prenom, $id]);
-        
-        // بعد نجاح التعديل نرجع مباشرة لـ index.php
-        header("Location: index.php");
-        exit();
-    } catch (PDOException $e) {
-        die("Erreur de modification : " . $e->getMessage());
-    }
-}
-
-// 2. ثانياً: جلب بيانات الأستاذ لعرضها داخل الفورم (GET)
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    
-    try {
-        // البحث باستعمال id_enseignant
-        $stmt = $pdo->prepare("SELECT * FROM enseignants WHERE id_enseignant = ?");
-        $stmt->execute([$id]);
-        $ens = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$ens) {
-            die("Enseignant introuvable !");
-        }
-    } catch (PDOException $e) {
-        die("Erreur : " . $e->getMessage());
-    }
-} else {
+if (!isset($_GET['id'])) {
     header("Location: index.php");
-    exit();
+    exit;
 }
+$id = (int) $_GET['id'];
+try {
+    $stmt = $pdo->prepare("SELECT * FROM enseignants WHERE id_enseignant = ?");
+    $stmt->execute([$id]);
+    $ens = $stmt->fetch();
+
+    if (!$ens) {
+        header("Location: index.php?error=" . urlencode("Enseignant introuvable."));
+        exit;
+    }
+}catch (PDOException $e) {
+    die("Une erreur est survenue.");
+}
+
+include "../includes/header.php";
+include "../includes/navbar.php";
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Modifier un Enseignant</title>
-</head>
-<body>
-    <h2>Modifier les informations de l'enseignant</h2>
-    
-    <form action="edit.php?id=<?= $ens['id_enseignant'] ?>" method="POST">
-        <input type="hidden" name="id" value="<?= $ens['id_enseignant'] ?>">
+<h2>Modifier l'Enseignant</h2>
 
-        <p>
-            <label>Nom :</label>
-            <input type="text" name="nom" value="<?= htmlspecialchars($ens['nom'] ?? '') ?>" required>
-        </p>
-        
-        <p>
-            <label>Prénom :</label>
-            <input type="text" name="prenom" value="<?= htmlspecialchars($ens['prenom'] ?? '') ?>" required>
-        </p>
-        
-        <button type="submit">Modifier</button>
-        <a href="index.php">Annuler</a>
+<?php if (isset($_GET['error'])): ?>
+    <div class="alert alert-error"><?= h($_GET['error']) ?></div>
+<?php endif; ?>
+
+<div class="form-box">
+    <form action="update.php" method="POST">
+        <input type="hidden" name="id_enseignant" value="<?= h($ens['id_enseignant']) ?>">
+
+        <label>Matricule (code enseignant) :</label>
+        <input type="text" name="code_enseignant" value="<?= h($ens['code_enseignant']) ?>" required>
+
+        <label>Nom :</label>
+        <input type="text" name="nom" value="<?= h($ens['nom']) ?>" required>
+
+        <label>Prénom :</label>
+        <input type="text" name="prenom" value="<?= h($ens['prenom']) ?>" required>
+
+        <label>Email :</label>
+        <input type="email" name="email" value="<?= h($ens['email']) ?>" required>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">Mettre à jour</button>
+            <a href="index.php" class="btn btn-cancel">Annuler</a>
+        </div>
     </form>
-</body>
-</html>
+</div>
+
+<?php include "../includes/footer.php"; ?>

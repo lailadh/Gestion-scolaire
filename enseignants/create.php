@@ -1,41 +1,34 @@
 <?php
-require "../config/db.php";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-
-    if (!empty($nom) && !empty($prenom)) {
-        try {
-            // هنا استعملنا الأسماء المتوقعة للحقول
-            $stmt = $pdo->prepare("INSERT INTO enseignants (nom_enseignant, prenom_enseignant) VALUES (?, ?)");
-            $stmt->execute([$nom, $prenom]);
-            header("Location: index.php");
-            exit();
-        } catch (PDOException $e) {
-            die("Erreur d'insertion : " . $e->getMessage());
-        }
-    }
-}
+require "../includes/functions.php";
+include "../includes/header.php";
+include "../includes/navbar.php";
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Ajouter un Enseignant</title>
-</head>
-<body>
-    <h2>Ajouter un nouvel enseignant</h2>
-    <form action="create.php" method="POST">
+<h2>Ajouter un Enseignant</h2>
+
+<?php if (isset($_GET['error'])): ?>
+    <div class="alert alert-error"><?= h($_GET['error']) ?></div>
+<?php endif; ?>
+
+<div class="form-box">
+    <form action="store.php" method="POST">
+        <label>Matricule (code enseignant) :</label>
+        <input type="text" name="code_enseignant" required>
+
         <label>Nom :</label>
-        <input type="text" name="nom" required><br><br>
-        
+        <input type="text" name="nom" required>
+
         <label>Prénom :</label>
-        <input type="text" name="prenom" required><br><br>
-        
-        <button type="submit">Enregistrer</button>
-        <a href="index.php">Annuler</a>
+        <input type="text" name="prenom" required>
+
+        <label>Email :</label>
+        <input type="email" name="email" required>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">Enregistrer</button>
+            <a href="index.php" class="btn btn-cancel">Annuler</a>
+        </div>
     </form>
-</body>
-</html>
+</div>
+
+<?php include "../includes/footer.php"; ?>

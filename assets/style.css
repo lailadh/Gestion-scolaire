@@ -1,117 +1,333 @@
-/* --- 1. التنسيق العام للموقع (Global Styles) --- */
+* {
+  box-sizing: border-box;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f8f9fa; /* خلفية رمادية فاتحة ومريحة */
-    color: #333;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
 }
 
 h2 {
-    color: #2c3e50;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 8px;
-    margin-top: 20px;
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 8px;
+  margin-top: 20px;
 }
 
-/* --- 2. تنسيق قائمة التنقل (Navbar) --- */
 nav {
-    background-color: #2c3e50; /* لون أزرق غامق احترافي */
-    padding: 15px 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background-color: #2c3e50;
+  padding: 15px 20px;
 }
 
 nav a {
-    color: #ffffff;
-    margin-right: 20px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease; /* تأثير سلس عند مرور الفأرة */
+  color: #ffffff;
+  margin-right: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 nav a:hover {
-    color: #3498db; /* يتغير اللون للأزرق الفاتح عند الـ Hover */
+  color: #3498db;
 }
 
-/* --- 3. تنسيق الجداول (Tables) --- */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #ffffff;
-    border-radius: 8px;
-    overflow: hidden; /* باش الحواف الدائرية تبان زوينة */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-top: 20px;
 }
 
-th, td {
-    padding: 12px 15px;
-    text-align: left;
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
 }
 
 th {
-    background-color: #34495e;
-    color: #ffffff;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 14px;
+  background-color: #34495e;
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
 }
 
 td {
-    border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
 }
 
-/* سطر رمادي وسطر أبيض بالتناوب باش تسهل القراءة */
 tr:nth-child(even) {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
-
-/* تأثير عند المرور فوق أسطر الجدول */
 tr:hover {
-    background-color: #f1f4f6;
+  background-color: #f1f4f6;
 }
 
-/* --- 4. تنسيق الأزرار والروابط (Buttons) --- */
 .btn {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 14px;
-    transition: all 0.2s ease;
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .btn-add {
-    background-color: #2ecc71;
-    color: white;
-    margin-bottom: 15px;
+  background-color: #2ecc71;
+  color: white;
+  margin-bottom: 15px;
 }
-
-.btn-add:hover { background-color: #27ae60; }
+.btn-add:hover {
+  background-color: #27ae60;
+}
 
 .btn-edit {
-    background-color: #f1c40f;
-    color: #2c3e50;
-    margin-right: 5px;
+  background-color: #f1c40f;
+  color: #2c3e50;
+  margin-right: 5px;
 }
-
-.btn-edit:hover { background-color: #d4ac0d; }
+.btn-edit:hover {
+  background-color: #d4ac0d;
+}
 
 .btn-delete {
-    background-color: #e74c3c;
-    color: white;
+  background-color: #e74c3c;
+  color: white;
+}
+.btn-delete:hover {
+  background-color: #c0392b;
 }
 
-.btn-delete:hover { background-color: #c0392b; }
+.btn-save {
+  background-color: #3498db;
+  color: white;
+}
+.btn-save:hover {
+  background-color: #2980b9;
+}
 
-/* --- 5. تذييل الصفحة (Footer) --- */
+.btn-cancel {
+  background-color: #95a5a6;
+  color: white;
+}
+.btn-cancel:hover {
+  background-color: #7f8c8d;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.actions-bar {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.form-box {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  max-width: 550px;
+}
+
+.form-box label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #2c3e50;
+}
+
+.form-box input,
+.form-box select {
+  width: 100%;
+  padding: 9px 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-box input:focus,
+.form-box select:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.alert {
+  padding: 12px 15px;
+  margin-bottom: 18px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.alert-success {
+  color: #1e7e34;
+  background-color: #e6f4ea;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+  color: #c5221f;
+  background-color: #fce8e6;
+  border: 1px solid #f5c6cb;
+}
+
+.empty-row {
+  text-align: center;
+  color: #888;
+  padding: 20px !important;
+}
+
 footer {
-    text-align: center;
-    margin-top: 5px;
-    padding: 20px;
-    color: #7f8c8d;
-    font-size: 14px;
+  text-align: center;
+  margin-top: 30px;
+  padding: 20px;
+  color: #7f8c8d;
+  font-size: 14px;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Dashboard (cards de statistiques) — utile si tu utilises ta version index.php avec stats */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.card h3 {
+  margin: 0 0 5px 0;
+  color: #2c3e50;
+  border-bottom: none;
+  padding-bottom: 0;
+  font-size: 16px;
+}
+
+.btn-save {
+  background-color: #3498db;
+  color: white;
+}
+.btn-save:hover {
+  background-color: #2980b9;
+}
+
+.btn-cancel {
+  background-color: #95a5a6;
+  color: white;
+}
+.btn-cancel:hover {
+  background-color: #7f8c8d;
+}
+
+.form-box {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  max-width: 550px;
+}
+
+.form-box label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #2c3e50;
+}
+
+.form-box input,
+.form-box select {
+  width: 100%;
+  padding: 9px 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-box input:focus,
+.form-box select:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.form-container {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  max-width: 550px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #2c3e50;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #3498db;
 }
