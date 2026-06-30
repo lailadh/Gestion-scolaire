@@ -1,24 +1,26 @@
 <?php
 require "../config/db.php";
+require "../includes/functions.php";
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    try {
-        // 1. أولاً: مسح جميع التعيينات المرتبطة بهاد الأستاذ من جدول affectations
-        $stmt1 = $pdo->prepare("DELETE FROM affectations WHERE id_enseignant = ?");
-        $stmt1->execute([$id]);
-
-        // 2. ثانياً: دابا قاعدة البيانات غاتخلينا نمسحو الأستاذ حيت مابقاش متبوع ف حتى شي بلاصة
-        $stmt2 = $pdo->prepare("DELETE FROM enseignants WHERE id_enseignant = ?");
-        $stmt2->execute([$id]);
-
-    } catch (PDOException $e) {
-        die("Erreur de suppression : " . $e->getMessage());
-    }
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    header("Location: index.php");
+    exit;
 }
+$id = (int) $_GET['id'];
 
-// الرجوع مباشرة لصفحة جدول الأساتذة
-header("Location: index.php");
-exit();
-?>
+try {
+    // La contrainte FK (ON DELETE RESTRICT) empêche la suppression
+    // si l'enseignant possède encore des affectations.
+    $stmt = $pdo->prepare("DELETE FROM enseignants WHERE id_enseignant = ?");
+    $stmt->execute([$id]);
+
+    header("Location: index.php?success=1");
+    exit;
+} catch (PDOException $e) {
+    $msg = messageErreurBD(
+        $e,
+        "Impossible de supprimer cet enseignant : il possède des affectations existantes."
+    );
+    header("Location: index.php?error=" . urlencode($msg));
+    exit;
+}

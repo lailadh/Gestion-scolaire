@@ -4,40 +4,84 @@
 <?php
 require "../config/db.php";
 
-// التأكد من أن المعرف مرسل في الرابط
-if (!isset($_GET['id'])) {
+if (!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: index.php");
-    exit();
+    exit;
 }
 
-$id = $_GET['id'];
+$id = (int) $_GET['id'];
 
 try {
-    // البحث باستعمال id_eleve
-    $e = $pdo->prepare("SELECT * FROM eleves WHERE id_eleve = ?");
-    $e->execute([$id]);
-    $eleve = $e->fetch(PDO::FETCH_ASSOC);
+    $stmt = $pdo->prepare("SELECT * FROM eleves WHERE id_eleve = ?");
+    $stmt->execute([$id]);
+    $eleve = $stmt->fetch();
 
     if (!$eleve) {
-        die("Élève introuvable !");
+        die("<div class='alert alert-error'>Élève introuvable.</div>");
     }
-} catch (PDOException $ex) {
-    die("Erreur de base de données : " . $ex->getMessage());
+
+} catch (PDOException $e) {
+    die("<div class='alert alert-error'>Une erreur est survenue.</div>");
 }
 ?>
 
 <h2>Modifier l'Élève</h2>
 
-<form action="update.php" method="POST">
-    <input type="hidden" name="id_eleve" value="<?= htmlspecialchars($eleve['id_eleve']) ?>">
-    
-    <label>Nom:</label>
-    <input type="text" name="nom" value="<?= htmlspecialchars($eleve['nom'] ?? '') ?>" required>
-    
-    <label>Prénom:</label>
-    <input type="text" name="prenom" value="<?= htmlspecialchars($eleve['prenom'] ?? '') ?>" required>
-    
-    <button type="submit">Update</button>
-</form>
+<div class="form-container">
+    <form action="update.php" method="POST">
+
+        <input type="hidden" name="id_eleve" value="<?= htmlspecialchars($eleve['id_eleve']) ?>">
+
+        <div class="form-group">
+            <label>Code élève :</label>
+            <input
+                type="text"
+                name="code_eleve"
+                value="<?= htmlspecialchars($eleve['code_eleve']) ?>"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label>Nom :</label>
+            <input
+                type="text"
+                name="nom"
+                value="<?= htmlspecialchars($eleve['nom']) ?>"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label>Prénom :</label>
+            <input
+                type="text"
+                name="prenom"
+                value="<?= htmlspecialchars($eleve['prenom']) ?>"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label>Email :</label>
+            <input
+                type="email"
+                name="email"
+                value="<?= htmlspecialchars($eleve['email']) ?>"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label>Date de naissance :</label>
+            <input
+                type="date"
+                name="date_naissance"
+                value="<?= htmlspecialchars($eleve['date_naissance']) ?>">
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-edit">Modifier</button>
+            <a href="index.php" class="btn btn-cancel">Annuler</a>
+        </div>
+
+    </form>
+</div>
 
 <?php include "../includes/footer.php"; ?>
