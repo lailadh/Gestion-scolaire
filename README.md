@@ -4,16 +4,16 @@ Application web de gestion scolaire développée en **PHP**, **MySQL** et **Boot
 
 ---
 
-## 📌 Fonctionnalités
+##  Fonctionnalités
 
-### 👨‍🎓 Gestion des élèves
+###  Gestion des élèves
 
 - Ajouter un élève
 - Modifier un élève
 - Supprimer un élève
 - Consulter la liste des élèves
 
-### 🏫 Gestion des classes
+###  Gestion des classes
 
 - Ajouter une classe
 - Modifier une classe
@@ -21,21 +21,21 @@ Application web de gestion scolaire développée en **PHP**, **MySQL** et **Boot
 - Définir la capacité maximale
 - Gérer l'année scolaire
 
-### 👨‍🏫 Gestion des enseignants
+###  Gestion des enseignants
 
 - Ajouter un enseignant
 - Modifier un enseignant
 - Supprimer un enseignant
 - Gestion du matricule et de l'email
 
-### 📚 Gestion des matières
+###  Gestion des matières
 
 - Ajouter une matière
 - Modifier une matière
 - Supprimer une matière
 - Définir le coefficient
 
-### 📝 Gestion des inscriptions
+###  Gestion des inscriptions
 
 - Inscrire un élève dans une classe
 - Modifier une inscription
@@ -43,7 +43,7 @@ Application web de gestion scolaire développée en **PHP**, **MySQL** et **Boot
 - Vérification de la capacité maximale
 - Un seul élève par classe et par année scolaire
 
-### 📖 Gestion des affectations
+###  Gestion des affectations
 
 - Affecter un enseignant à une classe et une matière
 - Modifier une affectation
@@ -52,7 +52,7 @@ Application web de gestion scolaire développée en **PHP**, **MySQL** et **Boot
 
 ---
 
-# 🛠️ Technologies utilisées
+#  Technologies utilisées
 
 - PHP 8
 - MySQL
@@ -63,7 +63,7 @@ Application web de gestion scolaire développée en **PHP**, **MySQL** et **Boot
 
 ---
 
-# 📂 Structure du projet
+#  Structure du projet
 
 ```
 gestion_scolaire/
@@ -91,7 +91,7 @@ gestion_scolaire/
 
 ---
 
-# 🗄️ Base de données
+#  Base de données
 
 Nom de la base de données :
 
@@ -161,7 +161,7 @@ http://localhost/gestion_scolaire
 
 ---
 
-# 👨‍💻 Auteur
+#  Auteur
 
 Projet réalisé dans le cadre de la formation Développement Digital.
 
