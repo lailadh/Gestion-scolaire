@@ -1,176 +1,168 @@
-# README – Projet Gestion Scolaire (SchoolManager)
+# Gestion_scolaire
 
-## 1. Présentation du projet
+Application web de gestion scolaire développée en **PHP**, **MySQL** et **Bootstrap** permettant de gérer les élèves, les classes, les enseignants, les matières, les inscriptions et les affectations.
 
-SchoolManager est une application web de gestion scolaire permettant de centraliser les informations administratives d’un établissement scolaire.
+---
 
-L’objectif est de remplacer les fichiers Excel et la gestion papier par une solution numérique facilitant la gestion des élèves, classes, enseignants, matières, inscriptions et affectations.
+## 📌 Fonctionnalités
 
-### Technologies utilisées :
+### 👨‍🎓 Gestion des élèves
 
-- PHP
-- PDO
+- Ajouter un élève
+- Modifier un élève
+- Supprimer un élève
+- Consulter la liste des élèves
+
+### 🏫 Gestion des classes
+
+- Ajouter une classe
+- Modifier une classe
+- Supprimer une classe
+- Définir la capacité maximale
+- Gérer l'année scolaire
+
+### 👨‍🏫 Gestion des enseignants
+
+- Ajouter un enseignant
+- Modifier un enseignant
+- Supprimer un enseignant
+- Gestion du matricule et de l'email
+
+### 📚 Gestion des matières
+
+- Ajouter une matière
+- Modifier une matière
+- Supprimer une matière
+- Définir le coefficient
+
+### 📝 Gestion des inscriptions
+
+- Inscrire un élève dans une classe
+- Modifier une inscription
+- Supprimer une inscription
+- Vérification de la capacité maximale
+- Un seul élève par classe et par année scolaire
+
+### 📖 Gestion des affectations
+
+- Affecter un enseignant à une classe et une matière
+- Modifier une affectation
+- Supprimer une affectation
+- Gestion des affectations par année scolaire
+
+---
+
+# 🛠️ Technologies utilisées
+
+- PHP 8
 - MySQL
-- HTML / CSS
-- XAMPP
-- MERISE (MCD / MLD)
+- HTML5
+- CSS3
+- Bootstrap
+- PDO
 
 ---
 
-## 2. Problématique
+# 📂 Structure du projet
 
-L’établissement utilise plusieurs fichiers Excel et documents papier pour gérer ses activités administratives.
-
-Cette méthode provoque :
-
-- Dispersion des informations
-- Données dupliquées
-- Difficulté de suivi des inscriptions
-- Gestion manuelle des affectations
-- Temps élevé pour rechercher les informations
-
-L’application SchoolManager vise à résoudre ces problèmes.
-
----
-
-## 3. Objectifs
-
-- Centraliser les données scolaires
-- Gérer les élèves
-- Gérer les classes
-- Gérer les enseignants
-- Gérer les matières
-- Gérer les inscriptions
-- Gérer les affectations
-- Garantir la cohérence des données
-- Sécuriser l’application
-- Faciliter le travail administratif
+```
+gestion_scolaire/
+│
+├── affectations/
+├── classes/
+├── eleves/
+├── enseignants/
+├── inscriptions/
+├── matieres/
+│
+├── config/
+│   └── db.php
+│
+├── includes/
+│   ├── header.php
+│   ├── navbar.php
+│   ├── footer.php
+│   └── functions.php
+│
+├── assets/
+│
+└── index.php
+```
 
 ---
 
-## 4. Acteurs du système
+# 🗄️ Base de données
 
-### Administrateur
+Nom de la base de données :
 
-- Gestion des élèves
-- Gestion des classes
-- Gestion des enseignants
-- Gestion des matières
-- Gestion des inscriptions
-- Gestion des affectations
+```
+gestion_scolaire
+```
 
-### Enseignant
+Tables principales :
 
-- Consulter les classes affectées
-- Consulter les matières enseignées
-
-### Élève
-
-- Consulter ses informations scolaires
-- Consulter sa classe
-
-### Parent
-
-- Consulter les informations scolaires de son enfant
+- eleves
+- classes
+- enseignants
+- matieres
+- inscriptions
+- affectations
 
 ---
 
-## 5. Règles de gestion
+# Validation des données
 
-- Un élève peut avoir plusieurs inscriptions.
-- Une inscription concerne un seul élève.
-- Une classe peut contenir plusieurs élèves.
-- Une affectation associe un enseignant, une classe et une matière.
-- Les identifiants sont uniques.
-- Les contraintes d’intégrité doivent être respectées.
+L'application effectue plusieurs validations :
 
----
-
-## 6. Base de données
-
-### Entités principales
-
-#### ELEVE
-
-- id_eleve (PK)
-- nom
-- prenom
-- date_naissance
-- adresse
-- telephone
-
-#### CLASSE
-
-- id_classe (PK)
-- nom_classe
-- niveau
-- capacite
-
-#### ENSEIGNANT
-
-- id_enseignant (PK)
-- nom
-- prenom
-- specialite
-- telephone
-
-#### MATIERE
-
-- id_matiere (PK)
-- nom_matiere
-- coefficient
-
-#### INSCRIPTION
-
-- id_inscription (PK)
-- date_inscription
-- annee_scolaire
-- id_eleve (FK)
-- id_classe (FK)
-
-#### AFFECTATION
-
-- id_affectation (PK)
-- annee_scolaire
-- id_enseignant (FK)
-- id_classe (FK)
-- id_matiere (FK)
-
-### Contraintes utilisées
-
-- PRIMARY KEY
-- FOREIGN KEY
-- NOT NULL
-- UNIQUE
+- Tous les champs obligatoires.
+- Validation du format des emails.
+- Validation de l'année scolaire (AAAA-AAAA).
+- Vérification des doublons.
+- Respect des clés étrangères.
+- Contrôle de la capacité maximale des classes.
+- Vérification qu'un élève ne peut être inscrit qu'une seule fois par année scolaire.
 
 ---
 
-## 7. Implémentation technique
+# Installation
 
-### Sécurité
+1. Cloner le projet
 
-- Connexion PDO sécurisée
-- Requêtes préparées
-- Validation des formulaires
-- Protection SQL Injection
-- Protection XSS
-- Gestion des erreurs
+```
+git clone <repository>
+```
+
+2. Copier le projet dans le dossier **htdocs** de XAMPP.
+
+3. Créer la base de données :
+
+```
+gestion_scolaire
+```
+
+4. Importer le fichier SQL.
+
+5. Configurer la connexion dans :
+
+```
+config/db.php
+```
+
+6. Démarrer :
+
+- Apache
+- MySQL
+
+7. Ouvrir :
+
+```
+http://localhost/gestion_scolaire
+```
 
 ---
 
-## 8. Livrables
+# 👨‍💻 Auteur
 
-- Lien Jira
-- Schéma MCD
-- Schéma MLD
-- Script SQL
-- config.php
-- Application PHP fonctionnelle
-- Pages CRUD
-- Dépôt GitHub
+Projet réalisé dans le cadre de la formation Développement Digital.
 
----
-
-## Auteur
-
-Projet réalisé dans le cadre de la formation Développeur Web et Web Mobile.
+Développé avec PHP, MySQL et Bootstrap.
